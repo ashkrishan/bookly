@@ -29,7 +29,7 @@ namespace Vidly.Controllers
             {
                 Customers = _customers
             };
-
+            
             return View(viewModel);
         }
 
@@ -41,6 +41,9 @@ namespace Vidly.Controllers
                                where cust.Id == id
                                select cust).FirstOrDefault();
 
+            if (getCustomer == null)
+                return HttpNotFound();
+            
             return View(getCustomer);
 
         }
