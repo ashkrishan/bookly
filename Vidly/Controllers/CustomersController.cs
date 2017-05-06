@@ -33,7 +33,7 @@ namespace Vidly.Controllers
             return View(viewModel);
         }
 
-        [Route("Customers/{details}/{id}")]
+        [Route("Customers/Details/{id}")]
         public ActionResult Details(int id)
         {
             

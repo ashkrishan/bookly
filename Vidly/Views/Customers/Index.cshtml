@@ -4,18 +4,30 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<table class="table table-hover">
-    <caption>Customers</caption>
-    <thead>
-        <tr><th>Customers</th></tr>
-    </thead>
-    @{
-        <tbody>
-            @foreach (var customer in Model.Customers)
-            {
-               <tr><td>@Html.ActionLink(customer.Name,"Details", "Customers", routeValues: new { id = customer.Id }, htmlAttributes: null)</td></tr>
-            }
-        </tbody>
-    }
-</table>
+@*Uncomment below to test if there are no customers*@
+@*@{    Model.Customers.Clear(); }*@
 
+@if (Model.Customers.Count == 0)
+{
+    <h3>Currently there is no customer to display.</h3>
+}
+
+else
+{
+
+    <table class="table table-hover">
+        <caption style="font-size: large;">Customers</caption>
+        <thead>
+            <tr><th>Customers</th></tr>
+        </thead>
+        @{
+            <tbody>
+                @foreach (var customer in Model.Customers)
+                {
+                    <tr><td>@Html.ActionLink(customer.Name, "Details", "Customers", routeValues: new { id = customer.Id }, htmlAttributes: null)</td></tr>
+                }
+            </tbody>
+        }
+    </table>
+
+}
