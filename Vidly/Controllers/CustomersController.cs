@@ -29,11 +29,11 @@ namespace Vidly.Controllers
             {
                 Customers = _customers
             };
-
+            
             return View(viewModel);
         }
 
-        [Route("Customers/{details}/{id}")]
+        [Route("Customers/Details/{id}")]
         public ActionResult Details(int id)
         {
             
@@ -41,6 +41,9 @@ namespace Vidly.Controllers
                                where cust.Id == id
                                select cust).FirstOrDefault();
 
+            if (getCustomer == null)
+                return HttpNotFound();
+            
             return View(getCustomer);
 
         }

@@ -10,54 +10,36 @@ namespace Vidly.Controllers
 {
     public class BooksController : Controller
     {
-        // GET: Books/Random
-        public ActionResult Random()
+
+        private readonly List<Book> _books = new List<Book>
         {
-            var book = new Book
-            { Name = @"C# Principles Advanced" } ;
-            // return View(book);
-            var customers = new List<Customer>
+            new Book {Id = 1, Name=@"C# Advanced"},
+            new Book {Id=2, Name="Design Patterns"}
+        };
+
+
+        // GET: Books
+        public ActionResult Index()
+        {
+            var viewModel = new BooksViewModel
             {
-                new Customer {Name="Jack Black"},
-                new Customer {Name = "Mr Tumble"}
+                Books = _books
             };
-
-            var viewModel = new RandomViewModel
-            {
-                Book = book,
-                Customers = customers
-            };
-
-            return View(viewModel);
-
-            //return RedirectToAction("Index", "Home", new { page = 1, sortBy = "name" });
-        }
-
-        public ActionResult Edit(int id)
-        {
-            return Content("id: " + id);
-        }
-
-        public ActionResult Index(int? pageIndex, string sortBy)
-        {
-            if (!pageIndex.HasValue)
-                pageIndex = 1;
-
-            if (String.IsNullOrWhiteSpace(sortBy))
-                sortBy = "Name";
-
-            return Content(String.Format("?pageIndex={0}&sortBy={1}", pageIndex, sortBy));
-
             
-              
-        }
-       
-        
-        [Route("Books/{year:regex(\\d{4}):range(2004,2030)}/{month:regex(\\d{2}):range(1,12)}")]
-        public ActionResult ByReleaseDate(int year, int month)
-        {
-            return Content(String.Format("{0}/{1}", year, month));
+            return View(viewModel);
         }
 
+        [Route("Books/Details/{id}")]
+        public ActionResult Details(int id)
+        {
+            var GetBooks = (from book in _books
+                            where book.Id == id
+                            select book).FirstOrDefault();
+
+            if (GetBooks == null)
+                return HttpNotFound(@"Book with this id doesn't exist");
+            return View(GetBooks);
+
+        }
     }
 }
