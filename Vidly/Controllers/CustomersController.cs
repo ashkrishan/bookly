@@ -11,33 +11,33 @@ namespace Vidly.Controllers
     public class CustomersController : Controller
     {
         
-        private readonly List<Customer> _customers = new List<Customer>
+        private readonly List<Customer> _customers;
 
+        private IEnumerable<Customer> GetCustomers()
+        {
+            //return new List<Customer>();
+            return new List<Customer>
             {
                 new Customer {Id=1, Name = "Mr Jack Brown"},
                 new Customer {Id=2, Name = "Miss Jane Smith"},
                 new Customer {Id=3,Name = "Lord Zack Smith"}
             };
 
+        }
 
         // GET: Customer
         public ActionResult Index()
         {
-
-
-            var viewModel = new CustomersViewModel
-            {
-                Customers = _customers
-            };
+            var customers = GetCustomers();
             
-            return View(viewModel);
+            return View(customers);
         }
 
-        [Route("Customers/Details/{id}")]
+        //[Route("Customers/Details/{id}")] //Not needed as dynamic route is already defined in route config 
         public ActionResult Details(int id)
         {
             
-            var getCustomer = (from cust in _customers
+            var getCustomer = (from cust in GetCustomers()
                                where cust.Id == id
                                select cust).FirstOrDefault();
 

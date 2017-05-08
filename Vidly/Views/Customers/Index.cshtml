@@ -1,13 +1,11 @@
-﻿@model Vidly.ViewModels.CustomersViewModel
+﻿@model IEnumerable<Vidly.Models.Customer>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@*Uncomment below to test if there are no customers*@
-@*@{    Model.Customers.Clear(); }*@
 
-@if (Model.Customers.Count == 0)
+@if (Model.Count() == 0)
 {
     <h3>Currently there is no customer to display.</h3>
 }
@@ -22,7 +20,7 @@ else
         </thead>
         @{
             <tbody>
-                @foreach (var customer in Model.Customers)
+                @foreach (var customer in Model)
                 {
                     <tr><td>@Html.ActionLink(customer.Name, "Details", "Customers", routeValues: new { id = customer.Id }, htmlAttributes: null)</td></tr>
                 }
