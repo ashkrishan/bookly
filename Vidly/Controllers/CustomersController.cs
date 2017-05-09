@@ -4,40 +4,40 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Vidly.Models;
-using Vidly.ViewModels;
+
 
 namespace Vidly.Controllers
 {
     public class CustomersController : Controller
     {
 
-        private IEnumerable<Customer> Customers
-        {
-            get
-            {
-                return new List<Customer>
-            {
-                new Customer {Id=1, Name = "Mr Jack Brown"},
-                new Customer {Id=2, Name = "Miss Jane Smith"},
-                new Customer {Id=3,Name = "Lord Zack Smith"}
-            };
 
-            }
+
+        private ApplicationDbContext _context;
+
+        public CustomersController()
+        {
+            _context = new ApplicationDbContext();
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
+
 
         // GET: Customer
         public ActionResult Index()
-        {
-            var customers = Customers;
-            
-            return View(customers);
+        {                     
+            return View(_context.Customers.ToList());
         }
+
 
         //[Route("Customers/Details/{id}")] //Not needed as dynamic route is already defined in route config 
         public ActionResult Details(int id)
         {
             
-            var getCustomer = (from cust in Customers
+            var getCustomer = (from cust in _context.Customers
                                where cust.Id == id
                                select cust).FirstOrDefault();
 

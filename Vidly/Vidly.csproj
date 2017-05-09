@@ -211,6 +211,10 @@
     <Compile Include="Migrations\201705072038540_PopulateCustomer.Designer.cs">
       <DependentUpon>201705072038540_PopulateCustomer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705091323087_AddCustomerNameAnnotation.cs" />
+    <Compile Include="Migrations\201705091323087_AddCustomerNameAnnotation.Designer.cs">
+      <DependentUpon>201705091323087_AddCustomerNameAnnotation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Book.cs" />
@@ -327,6 +331,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705072038540_PopulateCustomer.resx">
       <DependentUpon>201705072038540_PopulateCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705091323087_AddCustomerNameAnnotation.resx">
+      <DependentUpon>201705091323087_AddCustomerNameAnnotation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
