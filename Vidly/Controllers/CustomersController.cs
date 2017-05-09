@@ -10,25 +10,25 @@ namespace Vidly.Controllers
 {
     public class CustomersController : Controller
     {
-        
-        private readonly List<Customer> _customers;
 
-        private IEnumerable<Customer> GetCustomers()
+        private IEnumerable<Customer> Customers
         {
-            //return new List<Customer>();
-            return new List<Customer>
+            get
+            {
+                return new List<Customer>
             {
                 new Customer {Id=1, Name = "Mr Jack Brown"},
                 new Customer {Id=2, Name = "Miss Jane Smith"},
                 new Customer {Id=3,Name = "Lord Zack Smith"}
             };
 
+            }
         }
 
         // GET: Customer
         public ActionResult Index()
         {
-            var customers = GetCustomers();
+            var customers = Customers;
             
             return View(customers);
         }
@@ -37,7 +37,7 @@ namespace Vidly.Controllers
         public ActionResult Details(int id)
         {
             
-            var getCustomer = (from cust in GetCustomers()
+            var getCustomer = (from cust in Customers
                                where cust.Id == id
                                select cust).FirstOrDefault();
 
